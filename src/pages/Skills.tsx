@@ -1,6 +1,5 @@
 
 import { Link } from 'react-router-dom'
-import ArtworkPlaceholder from '../components/ArtworkPlaceholder'
 
 const skills = [
   {
@@ -33,27 +32,48 @@ const skills = [
   },
 ]
 
+// const clusters = [
+//   {
+//     slug: 'maheshwari-weaving',
+//     title: 'Maheshwari Weaving',
+//     place: 'Maheshwar',
+//     label: 'Maheshwari weaving field exposure',
+//     tone: 'clay' as const,
+//   },
+//   {
+//     slug: 'batik',
+//     title: 'Batik',
+//     place: 'Ujjain',
+//     label: 'Batik craft exposure',
+//     tone: 'rose' as const,
+//   },
+//   {
+//     slug: 'zari-zardozi',
+//     title: 'Zari Zardozi',
+//     place: 'Bhopal',
+//     label: 'Zari Zardozi craft exposure',
+//     tone: 'sage' as const,
+//   },
+// ]
+
 const clusters = [
   {
     slug: 'maheshwari-weaving',
     title: 'Maheshwari Weaving',
     place: 'Maheshwar',
-    label: 'Maheshwari weaving field exposure',
-    tone: 'clay' as const,
+    image: '/images/skills%20and%20craft/blog%20carousel/maheshwar.jpeg',
   },
   {
     slug: 'batik',
     title: 'Batik',
     place: 'Ujjain',
-    label: 'Batik craft exposure',
-    tone: 'rose' as const,
+    image: '/images/skills%20and%20craft/blog%20carousel/batik.jpeg',
   },
   {
     slug: 'zari-zardozi',
     title: 'Zari Zardozi',
     place: 'Bhopal',
-    label: 'Zari Zardozi craft exposure',
-    tone: 'sage' as const,
+    image: '/images/skills%20and%20craft/blog%20carousel/zari-zardozi.jpeg',
   },
 ]
 
@@ -153,9 +173,10 @@ export default function Skills() {
               key={cluster.slug}
             >
               <div className="cluster-card-image">
-                <ArtworkPlaceholder
-                  label={cluster.label}
-                  tone={cluster.tone}
+                <img
+                  src={cluster.image}
+                  alt={cluster.title}
+                  loading="lazy"
                 />
                 <span className="cluster-card-number">
                   0{index + 1}
