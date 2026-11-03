@@ -58,16 +58,46 @@ const clusters = [
 ]
 
 const crafts = [
-  'Mata Ni Pachedi — Ahmedabad',
-  'Patan Patola — Surendranagar',
-  'Tangaliya — Surendranagar',
-  'Bujodi weaving — Bhujodi',
-  'Ajrakh printing — Ajrakhpur',
-  'Kharad weaving — Kukma',
-  'Beadwork — Bhuj',
-  'Nine hand embroideries of Kutch',
-  'Rogan art — Bhuj',
-  'Sironj Durries — Sironj',
+  {
+    title: 'Mata Ni Pachedi — Ahmedabad',
+    image: '/images/skills%20and%20craft/Mata%20ni%20pachedi.jpg',
+  },
+  {
+    title: 'Patan Patola — Surendranagar',
+    image: '/images/skills%20and%20craft/patola.jpg',
+  },
+  {
+    title: 'Tangaliya — Surendranagar',
+    image: '/images/skills%20and%20craft/Tangaliya.jpg',
+  },
+  {
+    title: 'Bujodi weaving — Bhujodi',
+    image: '/images/skills%20and%20craft/Bhujodi%20weaving.jpg',
+  },
+  {
+    title: 'Ajrakh printing — Ajrakhpur',
+    image: '/images/skills%20and%20craft/Ajrakh%20printing.jpg',
+  },
+  {
+    title: 'Kharad weaving — Kukma',
+    image: '/images/skills%20and%20craft/Kharad%20weaving.jpg',
+  },
+  {
+    title: 'Beadwork — Bhuj',
+    image: '/images/skills%20and%20craft/bead%20work.jpg',
+  },
+  {
+    title: 'Nine hand embroideries of Kutch',
+    image: '/images/skills%20and%20craft/9%20embroideries.jpg',
+  },
+  {
+    title: 'Rogan art — Bhuj',
+    image: '/images/skills%20and%20craft/Rogan%20art.jpg',
+  },
+  {
+    title: 'Sironj Durries — Sironj',
+    image: '/images/skills%20and%20craft/Sironj%20durries.jpeg',
+  },
 ]
 
 export default function Skills() {
@@ -159,15 +189,16 @@ export default function Skills() {
         </p>
 
         <div className="tradition-card-grid">
-          {crafts.map((craft, index) => (
-            <article className="tradition-card" key={craft}>
+          {crafts.map((craft) => (
+            <article className="tradition-card" key={craft.title}>
               <div className="tradition-card-image">
-                <ArtworkPlaceholder
-                  label={`Craft tradition ${index + 1}`}
-                  tone={(['clay', 'sage', 'rose'] as const)[index % 3]}
+                <img
+                  src={craft.image}
+                  alt={craft.title}
+                  loading="lazy"
                 />
               </div>
-              <h3>{craft}</h3>
+              <h3>{craft.title}</h3>
             </article>
           ))}
         </div>
