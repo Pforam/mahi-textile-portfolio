@@ -1,7 +1,6 @@
 
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import ArtworkPlaceholder from '../components/ArtworkPlaceholder'
 import ProjectCard from '../components/ProjectCard'
 import { projects } from '../data/projects'
 
@@ -40,9 +39,9 @@ export default function Home() {
         </div>
 
         <div className="hero-art-wrap">
-          <ArtworkPlaceholder
-            label="Featured textile artwork"
-            tone="clay"
+          <img
+            src="/images/hero/Textile feature artwork.png"
+            alt="Featured textile artwork by Mahi Patel"
             className="hero-art"
           />
           <span className="hero-stamp">
@@ -118,7 +117,7 @@ export default function Home() {
           <span className="eyebrow"></span>
           <p>
             "There is nothing like outside the box, you just have to <em>look
-          differently in it. </em>"
+              differently in it. </em>"
           </p>
         </div>
       </section>

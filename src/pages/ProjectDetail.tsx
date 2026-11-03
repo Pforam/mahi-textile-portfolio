@@ -49,6 +49,97 @@ const galleryProjects: Record<string, string[]> = {
   ],
 }
 
+
+const galleryImagePaths: Record<string, string[]> = {
+  vansutra: [
+    '/images/project%20gallery/vansutra/IMG_9335.jpg',
+    '/images/project%20gallery/vansutra/IMG_9346.jpg',
+    '/images/project%20gallery/vansutra/IMG_9352.jpg',
+    '/images/project%20gallery/vansutra/IMG_9356.jpg',
+    '/images/project%20gallery/vansutra/IMG_9361.jpg',
+    '/images/project%20gallery/vansutra/IMG-20260515-WA0109.jpg',
+  ],
+
+  bhoomiyo: [
+    '/images/project%20gallery/Bhoomiyo/attractive-woman-street-sunglasses%20copy.png',
+    '/images/project%20gallery/Bhoomiyo/hand%20print%20colorways_export_2.png',
+    '/images/project%20gallery/Bhoomiyo/Khetdhani_export.png',
+    '/images/project%20gallery/Bhoomiyo/Matodu_export.png',
+    '/images/project%20gallery/Bhoomiyo/Pankhiaaru_export.png',
+    '/images/project%20gallery/Bhoomiyo/bhoomiyo.png',
+  ],
+
+
+'weave-design': [
+  '/images/project%20gallery/Burger/IMG_20251128_111744.jpg',
+  '/images/project%20gallery/Burger/IMG_20251128_111930.jpg',
+  '/images/project%20gallery/Burger/IMG_20251128_112049.jpg',
+  '/images/project%20gallery/Burger/IMG_20251128_112121.jpg',
+  '/images/project%20gallery/Burger/IMG_20251128_112132.jpg',
+  '/images/project%20gallery/Burger/IMG_20251128_112216.jpg',
+],
+
+
+  parijat: [
+    '/images/project%20gallery/parijat/DSC09137.JPG',
+    '/images/project%20gallery/parijat/DSC09155.JPG',
+    '/images/project%20gallery/parijat/DSC09186.JPG',
+    '/images/project%20gallery/parijat/DSC09219.JPG',
+    '/images/project%20gallery/parijat/DSC09221.JPG',
+    '/images/project%20gallery/parijat/DSC09253.JPG',
+  ],
+
+  'veil-of-the-wild': [
+    '/images/project%20gallery/Veil%20of%20the%20wild/20251217_163716.png',
+    '/images/project%20gallery/Veil%20of%20the%20wild/WhatsApp%20Image%202025-12-18%20at%2019.59.42%20(1).png',
+    '/images/project%20gallery/Veil%20of%20the%20wild/WhatsApp%20Image%202025-12-18%20at%2019.59.42.png',
+    '/images/project%20gallery/Veil%20of%20the%20wild/WhatsApp%20Image%202025-12-18%20at%2019.59.43%20(1).png',
+    '/images/project%20gallery/Veil%20of%20the%20wild/WhatsApp%20Image%202025-12-18%20at%2019.59.43%20(2).png',
+    '/images/project%20gallery/Veil%20of%20the%20wild/WhatsApp%20Image%202025-12-18%20at%2019.59.43.png',
+  ],
+}
+
+
+function ProcessCarousel({
+  label,
+  processIndex,
+}: {
+  label: string
+  processIndex: number
+}) {
+  // Replace these placeholder entries with as many real image paths as needed.
+  const images = Array.from(
+    { length: 3 },
+    (_, index) => `${label} — Image ${index + 1}`,
+  )
+
+  // Duplicate the images to create a seamless continuous loop.
+  const movingImages = [...images, ...images]
+
+  return (
+    <div
+      className={`process-carousel ${processIndex % 2 === 1 ? 'reverse' : ''}`}
+      aria-label={`Image carousel for ${label}`}
+    >
+      <div className="process-carousel-track">
+        {movingImages.map((image, index) => (
+          <div
+            className="process-carousel-item"
+            key={`${image}-${index}`}
+            aria-hidden={index >= images.length}
+          >
+            <ArtworkPlaceholder
+              label={image}
+              tone={tones[index % tones.length]}
+              className="process-carousel-image"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function ProjectDetail() {
   const { slug } = useParams()
   const project = projects.find((item) => item.slug === slug)
@@ -56,6 +147,7 @@ export default function ProjectDetail() {
   if (!project) return <Navigate to="/work" replace />
 
   const gallery = galleryProjects[project.slug]
+  const galleryImages = galleryImagePaths[project.slug]
 
   return (
     <main className="project-detail section-wrap">
@@ -110,10 +202,10 @@ export default function ProjectDetail() {
                 <h2>{section.heading}</h2>
                 <p>{section.body}</p>
               </div>
-              <ArtworkPlaceholder
+
+              <ProcessCarousel
                 label={section.imageLabel}
-                tone={tones[index % tones.length]}
-                className="story-art"
+                processIndex={index}
               />
             </section>
           ))}
@@ -130,14 +222,22 @@ export default function ProjectDetail() {
 
           <div className="project-gallery-grid">
             {gallery.map((label, index) => (
-              <figure className="project-gallery-item" key={label}>
-                <ArtworkPlaceholder
-                  label={label}
-                  tone={tones[index % tones.length]}
-                  className="project-gallery-image"
-                />
-                <figcaption>{label}</figcaption>
-              </figure>
+              <div className="project-gallery-item" key={label}>
+                {galleryImages?.[index] ? (
+                  <img
+                    src={galleryImages[index]}
+                    alt={label}
+                    className="project-gallery-image"
+                    loading="lazy"
+                  />
+                ) : (
+                  <ArtworkPlaceholder
+                    label={label}
+                    tone={tones[index % tones.length]}
+                    className="project-gallery-image"
+                  />
+                )}
+              </div>
             ))}
           </div>
         </section>

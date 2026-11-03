@@ -1,6 +1,4 @@
 
-import ArtworkPlaceholder from '../components/ArtworkPlaceholder'
-
 const guidingPrinciples = [
   {
     number: '01',
@@ -34,13 +32,19 @@ const guidingPrinciples = [
   },
 ]
 
-const galleryItems = [
-  'Textile explorations',
-  'Craft and details',
-  'Creative process',
-  'Surface experiments',
-  'Inspiration and research',
-  'Material studies',
+const galleryImages = [
+  'WhatsApp Image 2026-11-03 at 02.23.05.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.23.56.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.24.26.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.24.59.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.26.27.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.29.07.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.29.45.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.32.29.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.35.04.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.36.07.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.36.55.jpeg',
+  'WhatsApp Image 2026-11-03 at 02.37.21.jpeg',
 ]
 
 export default function About() {
@@ -53,10 +57,11 @@ export default function About() {
       </div>
 
       <div className="about-layout">
-        <ArtworkPlaceholder
-          label="Portrait or personal studio photograph"
-          tone="sage"
-          className="about-art"
+        <img
+          src="/images/about/mahi%20image.png"
+          alt="Mahi Patel outdoors"
+          className="about-art about-portrait"
+          loading="lazy"
         />
 
         <div className="about-copy">
@@ -107,12 +112,13 @@ export default function About() {
 
         <div className="about-marquee">
           <div className="about-marquee-track">
-            {[...galleryItems, ...galleryItems].map((label, index) => (
-              <div className="about-gallery-item" key={`${label}-${index}`}>
-                <ArtworkPlaceholder
-                  label={label}
-                  tone={(['sage', 'clay', 'rose'] as const)[index % 3]}
+            {[...galleryImages, ...galleryImages].map((image, index) => (
+              <div className="about-gallery-item" key={`${image}-${index}`}>
+                <img
+                  src={`/images/about/Carousel/${encodeURIComponent(image)}`}
+                  alt={`Mahi's creative journey — photograph ${index % galleryImages.length + 1}`}
                   className="about-gallery-image"
+                  loading="lazy"
                 />
               </div>
             ))}

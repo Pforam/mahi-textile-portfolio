@@ -681,3 +681,174 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Individual process image carousels */
+.process-carousel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  margin-top: 24px;
+}
+
+.process-carousel-track {
+  display: flex;
+  width: max-content;
+  gap: 18px;
+  animation: processCarouselScroll 36s linear infinite;
+  will-change: transform;
+}
+
+.process-carousel:hover .process-carousel-track {
+  animation-play-state: paused;
+}
+
+.process-carousel.reverse .process-carousel-track {
+  animation-name: processCarouselScrollReverse;
+}
+
+.process-carousel-item {
+  flex: 0 0 260px;
+  width: 260px;
+  min-width: 0;
+}
+
+.process-carousel-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+}
+
+@keyframes processCarouselScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 9px));
+  }
+}
+
+@keyframes processCarouselScrollReverse {
+  from {
+    transform: translateX(calc(-50% - 9px));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .process-carousel-item {
+    flex-basis: 210px;
+    width: 210px;
+  }
+
+  .process-carousel-track {
+    gap: 14px;
+    animation-duration: 30s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .process-carousel-track {
+    animation: none;
+  }
+}
+
+/* Uniform project card images */
+.project-card-image {
+  aspect-ratio: 1 / 1;        /* change to 1 / 1, 3 / 2, 16 / 10, etc. */
+  background: #e9e1d3;        /* shows only while the image loads */
+}
+
+.project-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* fills the box and crops the extra, no stretching */
+  object-position: center;    /* change to "top" if faces or titles get cut off */
+  display: block;
+  transition: transform .45s;
+}
+
+.project-card:hover .project-card-image img {
+  transform: scale(1.025);    /* matches your existing placeholder hover effect */
+}
+
+/* Keep the placeholder the same size as real images */
+.project-card-image .artwork-placeholder {
+  height: 100%;
+  min-height: 0;
+}
+
+
+/* ABOUT PAGE — actual photographs */
+
+.about-portrait {
+  display: block;
+  width: 100%;
+  height: 530px;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-gallery-image {
+  display: block;
+  width: 100%;
+  height: 350px;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media (max-width: 640px) {
+  .about-portrait {
+    height: 360px;
+    min-height: 0;
+  }
+
+  .about-gallery-image {
+    height: 275px;
+  }
+}
+
+
+/* TRADITIONS — actual craft photographs */
+
+.tradition-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  height: auto;
+  overflow: hidden;
+}
+
+.tradition-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.tradition-card:hover .tradition-card-image img {
+  transform: scale(1.04);
+}
+
+@media (max-width: 640px) {
+  .tradition-card-image {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* PROJECT GALLERY — actual photographs */
+
+.project-gallery-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  height: auto;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
