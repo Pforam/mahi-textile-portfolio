@@ -852,3 +852,311 @@
   object-fit: cover;
   object-position: center;
 }
+
+
+/* CRAFT CLUSTER THUMBNAILS */
+
+.cluster-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  position: relative;
+  background: #e9e1d3;
+}
+
+.cluster-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.cluster-card:hover .cluster-card-image img {
+  transform: scale(1.04);
+}
+
+/* CRAFT BLOG - CONTINUOUS MOVING CAROUSEL */
+
+.craft-exposure-gallery {
+  padding-top: 85px;
+  overflow: hidden;
+}
+
+.craft-marquee {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 30px;
+}
+
+.craft-marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 20px;
+  animation: craftCarouselScroll 38s linear infinite;
+  will-change: transform;
+}
+
+.craft-marquee:hover .craft-marquee-track {
+  animation-play-state: paused;
+}
+
+.craft-marquee-item {
+  flex: 0 0 280px;
+  width: 280px;
+  min-width: 0;
+}
+
+.craft-marquee-item .artwork-placeholder {
+  width: 100%;
+  height: 350px;
+  min-height: 350px;
+}
+
+.craft-marquee-caption {
+  display: block;
+  padding-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+@keyframes craftCarouselScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 10px));
+  }
+}
+
+@media (max-width: 640px) {
+  .craft-marquee-track {
+    gap: 14px;
+    animation-duration: 30s;
+  }
+
+  .craft-marquee-item {
+    flex-basis: 220px;
+    width: 220px;
+  }
+
+  .craft-marquee-item .artwork-placeholder {
+    height: 280px;
+    min-height: 280px;
+  }
+
+  .craft-exposure-gallery {
+    padding-top: 60px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .craft-marquee-track {
+    animation: none;
+  }
+}
+
+/* CRAFT BLOG PAGE - title, subtitle, meta, article
+   Paste at the END of styles.css */
+
+.craft-exposure-header {
+  max-width: 820px;
+  padding-bottom: 40px;
+}
+
+.craft-exposure-header h1 {
+  margin: 0 0 18px;
+}
+
+.craft-exposure-subtitle {
+  font: italic 500 clamp(19px, 2.4vw, 26px)/1.45 var(--serif);
+  color: #6b675c;
+  max-width: 640px;
+  margin: 0 0 28px;
+}
+
+.craft-exposure-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  max-width: 640px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.craft-exposure-meta-name {
+  color: var(--clay);
+  font-weight: 600;
+}
+
+.craft-exposure-meta-dot {
+  color: #b7ae9e;
+}
+
+/* Article */
+.craft-article {
+  max-width: 680px;
+  padding: 25px 0 85px;
+  border-bottom: 1px solid var(--line);
+}
+
+.craft-article p {
+  font-size: 16px;
+  line-height: 1.95;
+  color: #5f5b50;
+  margin: 0 0 26px;
+}
+
+.craft-article p:first-child {
+  font: 500 clamp(20px, 2.2vw, 24px)/1.65 var(--serif);
+  color: var(--ink);
+}
+
+.craft-article .craft-article-closing {
+  font: italic 500 clamp(22px, 2.8vw, 30px)/1.5 var(--serif);
+  color: var(--clay);
+  margin: 55px 0 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.craft-exposure-gallery {
+  padding-top: 85px;
+}
+
+@media (max-width: 640px) {
+  .craft-exposure-header {
+    padding-bottom: 30px;
+  }
+
+  .craft-exposure-meta {
+    font-size: 11px;
+  }
+
+  .craft-article {
+    padding-bottom: 60px;
+  }
+
+  .craft-article p {
+    font-size: 15px;
+    line-height: 1.85;
+    margin-bottom: 22px;
+  }
+
+  .craft-article .craft-article-closing {
+    margin-top: 40px;
+    padding-top: 26px;
+  }
+
+  .craft-exposure-gallery {
+    padding-top: 60px;
+  }
+}
+
+/* Evenly spread article text */
+.craft-article {
+  max-width: 820px;
+}
+
+.craft-article p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* Keep the closing quote left-aligned so it doesn't stretch */
+.craft-article .craft-article-closing {
+  text-align: left;
+  hyphens: manual;
+}
+
+@media (max-width: 640px) {
+  /* Justified text on narrow screens leaves big gaps, so use normal alignment */
+  .craft-article p {
+    text-align: left;
+    hyphens: manual;
+  }
+}
+
+/* One full-width column */
+.craft-exposure-header {
+  max-width: none;
+}
+
+.craft-exposure-meta {
+  max-width: none;          /* the thin line under the subtitle spans full width */
+}
+
+.craft-article {
+  max-width: none;
+}
+
+.craft-article p {
+  font-size: 18px;          /* slightly larger so long lines stay easy to read */
+  line-height: 1.9;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: manual;          /* removes breaks like "ev-ery" */
+  -webkit-hyphens: manual;
+}
+
+.craft-article p:first-child {
+  font-size: clamp(22px, 2.4vw, 28px);
+}
+
+.craft-article .craft-article-closing {
+  font-size: clamp(24px, 3vw, 34px);
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .craft-article p {
+    font-size: 15px;
+    text-align: left;
+  }
+
+  .craft-article p:first-child {
+    font-size: 20px;
+  }
+}
+
+/* CRAFT BLOG — REAL IMAGE CAROUSELS */
+
+.craft-marquee-item {
+  flex: 0 0 280px;
+  width: 280px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.craft-marquee-image {
+  display: block;
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.craft-marquee-item:hover .craft-marquee-image {
+  transform: scale(1.04);
+}
+
+@media (max-width: 640px) {
+  .craft-marquee-item {
+    flex-basis: 220px;
+    width: 220px;
+  }
+
+  .craft-marquee-image {
+    height: 280px;
+  }
+}

@@ -1,7 +1,60 @@
-
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 import { ArrowUpRight, Send } from 'lucide-react'
 
+// Create a free form at https://formspree.io, then copy its endpoint ID
+// (the part after /f/ in https://formspree.io/f/xxxxxxxx).
+// Store it in a .env file as: VITE_FORMSPREE_ID=xxxxxxxx
+const FORMSPREE_ID = import.meta.env.VITE_FORMSPREE_ID as string | undefined
+
+type Status = 'idle' | 'sending' | 'success' | 'error'
+
 export default function Contact() {
+  const [status, setStatus] = useState<Status>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (!FORMSPREE_ID) {
+      setStatus('error')
+      setErrorMessage('The form is not configured yet. Please email me directly.')
+      return
+    }
+
+    const form = event.currentTarget
+    const formData = new FormData(form)
+
+    // Spam trap: real visitors never fill this hidden field.
+    if (formData.get('_gotcha')) return
+
+    setStatus('sending')
+    setErrorMessage('')
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+      })
+
+      if (response.ok) {
+        setStatus('success')
+        form.reset()
+      } else {
+        const result = await response.json().catch(() => null)
+        const detail = result?.errors
+          ?.map((e: { message: string }) => e.message)
+          .join(', ')
+        setStatus('error')
+        setErrorMessage(detail || 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setStatus('error')
+      setErrorMessage('Network error. Please check your connection and try again.')
+    }
+  }
+
   return (
     <main className="page-main section-wrap contact-page">
       <span className="eyebrow">SAY HELLO</span>
@@ -79,26 +132,13 @@ export default function Contact() {
           below.
         </p>
 
-        <form
-          className="contact-form"
-          action="https://formsubmit.co/mahikpatel21@gmail.com"
-          method="POST"
-        >
-          <input
-            type="hidden"
-            name="_subject"
-            value="New message from Mahi's Portfolio"
-          />
-
-          <input
-            type="hidden"
-            name="_template"
-            value="table"
-          />
-
+        <form className="contact-form" onSubmit={handleSubmit}>
+          {/* Honeypot field for bots (Formspree discards submissions that fill it) */}
           <input
             type="text"
-            name="_honey"
+            name="_gotcha"
+            tabIndex={-1}
+            autoComplete="off"
             style={{ display: 'none' }}
           />
 
@@ -135,9 +175,26 @@ export default function Contact() {
             />
           </div>
 
-          <button type="submit" className="button button-dark">
-            Send message <Send size={16} />
+          <button
+            type="submit"
+            className="button button-dark"
+            disabled={status === 'sending'}
+          >
+            {status === 'sending' ? 'Sending...' : 'Send message'}{' '}
+            <Send size={16} />
           </button>
+
+          {status === 'success' && (
+            <p className="form-status form-status-success" role="status">
+              Thank you! Your message has been sent. I’ll get back to you soon.
+            </p>
+          )}
+
+          {status === 'error' && (
+            <p className="form-status form-status-error" role="alert">
+              {errorMessage}
+            </p>
+          )}
         </form>
       </section>
     </main>
